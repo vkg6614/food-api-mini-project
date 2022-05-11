@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Receipe Day</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./style/style.css" />
+    <!-- <style>
+      * {
+        box-sizing: border-box;
+        margin: 0 auto;
+        font-family: "Lato", sans-serif;
+      }
+    </style> -->
+  </head>
+
+  <body>
+    <div class="mainDiv"></div>
+    <div class="header"><div></div></div>
+  </body>
+  <script type="module">
+    var mainDiv = document.querySelector(".mainDiv");
+    var header = document.querySelector(".header");
+    var headerDiv = document.querySelector(".header div");
+    import navbar from "./component/navbar.js";
+    import getData from "./script/function.js";
+    mainDiv.innerHTML = navbar();
+
+    var data = await getData(
+      `https://www.themealdb.com/api/json/v1/1/search.php?s&apikey=1`
+    );
+    var num = 0;
+    function random() {
+      num = Math.floor(Math.random() * 20);
+      var p_food = document.createElement("p");
+      console.log(num);
+      var p_recipe = document.createElement("p");
+      header.append(p_food);
+      p_recipe.textContent = "Recipe";
+      p_food.textContent = `Food Name : ${data.meals[num].strMeal}`;
+
+      headerDiv.append(p_recipe, data.meals[num].strInstructions);
+    }
+    random();
+
+    // for (var i = 0; i < data.meals.length; i++) {
+    //   header.append({});
+    // }
+  </script>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>latest_receipe</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./style/style.css" />
+  </head>
+
+  <body>
+    <div class="mainDiv"></div>
+    <div class="header"></div>
+  </body>
+  <script type="module">
+    let mainDiv = document.querySelector(".mainDiv");
+    let header = document.querySelector(".header");
+    import navbar from "./component/navbar.js";
+    import getData from "./script/function.js";
+    mainDiv.innerHTML = navbar();
+
+    let data = await getData(
+      `https://www.themealdb.com/api/json/v1/1/filter.php?i&apikey1`
+    );
+    // window.onload = appendData;
+    function appendData() {
+      console.log(data.meals);
+      data.meals.forEach(({ strMeal, strMealThumb }) => {
+        var p_food = document.createElement("p");
+        p_food.textContent = `Food Name : ${strMeal}`;
+        var image = document.createElement("img");
+        image.src = strMealThumb;
+        var div = document.createElement("div");
+        div.append(p_food, image);
+        header.append(div);
+      });
+    }
+    appendData();
+  </script>
+</html>
